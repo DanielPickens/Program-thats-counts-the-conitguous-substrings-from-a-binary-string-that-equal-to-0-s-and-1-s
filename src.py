@@ -1,70 +1,37 @@
 def countSubstring(Str, n) : 
-  
-    # To store the total count 
-    # of substrings 
     ans = 0; 
   
-    ideaOne = 0; 
+    atm = 0; 
   
-    # Traversing the string 
-    while (ideaOne < n) : 
+    while (atm < n) : 
+        cnt0 = 0; cnt1 = 0; 
   
-        # Count of consecutive 
-        # 0's & 1's 
-        count0 = 0; count1 = 0; 
+        if (Str[atm] == '0') : 
   
-        # Counting subarrays of 
-        # type "01" 
-        if (Str[ideaOne] == '0') : 
+            while (atm < n and Str[atm] == '0') : 
+                cnt0 += 1; 
+                atm += 1; 
   
-            # Count the consecutive 
-            # 0's 
-            while (ideaOne < n and Str[ideaOne] == '0') : 
-                count0 += 1; 
-                ideaOne += 1; 
-  
-            # If consecutive 0's 
-            # ends then check for 
-            # consecutive 1's 
-            jump = ideaOne; 
-  
-            # Counting consecutive 1's 
+            jump = atm; 
             while (jump < n and Str[jump] == '1') : 
-                count1 += 1; 
+                cnt1 += 1; 
                 jump += 1; 
-  
-        # Counting subarrays of 
-        # type "10" 
         else : 
+            while (atm < n and Str[atm] == '1') : 
+                cnt1 += 1; 
+                atm += 1; 
   
-            # Count consecutive 1's 
-            while (ideaOne < n and Str[ideaOne] == '1') : 
-                count1 += 1; 
-                ideaOne += 1; 
+            jump = atm; 
   
-            # If consecutive 1's 
-            # ends then check for 
-            # consecutive 0's 
-            jump = ideaOne; 
-  
-            # Count consecutive 0's 
             while (jump < n and Str[jump] == '0') : 
-                count0 += 1; 
+                cnt0 += 1; 
                 jump += 1; 
   
-        # Update the total count 
-        # of substrings with 
-        # minimum of (count0, count1) 
-        ans += min(count0, count1); 
-  
-    # Return answer 
+        ans += min(cnt0, cnt1); 
     return ans; 
   
 #next 
 if __name__ == "__main__" : 
     Str = "0001110010"; 
     n = len(Str); 
-  
-    # Function to print the 
-    # count of substrings 
     print(countSubstring(Str, n));
